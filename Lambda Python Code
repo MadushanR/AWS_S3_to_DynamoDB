@@ -1,0 +1,18 @@
+import json
+import boto3
+from time import gmtime, strftime
+
+sns = boto3.client('sns')
+now = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+def lambda_handler(event, context):
+    
+    snsArn = 'arn:aws:sns:us-east-2:353451480986:company'
+    message = ("You have successfully uploaded at " + now)
+    response = sns.publish(
+        TopicArn = snsArn,
+        Message = message ,
+        Subject='Document Uploaded'
+    )
+
+    print("success")
+    
